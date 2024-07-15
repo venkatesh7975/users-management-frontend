@@ -23,7 +23,7 @@ const App = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/`, { username });
+      await axios.post(`${process.env.REACT_APP_API_URL}`, { username });
       setUsers([...users, { username }]);
       setUsername("");
     } catch (error) {
