@@ -6,6 +6,7 @@ const App = () => {
   const [username, setUsername] = useState("");
   const [users, setUsers] = useState([]);
   const [editingUser, setEditingUser] = useState(null);
+  const [input, setInput] = useState("");
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -65,6 +66,10 @@ const App = () => {
     }
   };
 
+  const filterUsers = users.filter((user) => {
+    return user.username.toLowerCase().includes(input.toLowerCase());
+  });
+
   return (
     <div className="App">
       <header className="App-header text-center py-4 bg-primary text-white">
@@ -88,10 +93,17 @@ const App = () => {
             </div>
           </div>
         </form>
+        <input
+          type="text"
+          placeholder="search"
+          onChange={(e) => {
+            setInput(e.target.value);
+          }}
+        />
         <div>
           <h2>User List</h2>
           <ul className="list-group">
-            {users.map((user) => (
+            {filterUsers.map((user) => (
               <li
                 key={user._id}
                 className="list-group-item d-flex justify-content-between align-items-center"
