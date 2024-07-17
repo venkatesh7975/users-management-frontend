@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
   const [username, setUsername] = useState("");
@@ -66,31 +67,51 @@ const App = () => {
 
   return (
     <div className="App">
-      <header className="App-header">
+      <header className="App-header text-center py-4 bg-primary text-white">
         <h1>User Management App</h1>
       </header>
-      <main>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Enter username"
-            required
-          />
-          <button type="submit">
-            {editingUser ? "Update User" : "Add User"}
-          </button>
+      <main className="container my-4">
+        <form onSubmit={handleSubmit} className="mb-4">
+          <div className="input-group mb-3">
+            <input
+              type="text"
+              className="form-control"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Enter username"
+              required
+            />
+            <div className="input-group-append">
+              <button type="submit" className="btn btn-primary">
+                {editingUser ? "Update User" : "Add User"}
+              </button>
+            </div>
+          </div>
         </form>
         <div>
           <h2>User List</h2>
-          <ul>
+          <ul className="list-group">
             {users.map((user) => (
-              <div key={user._id}>
-                <li>{user.username}</li>
-                <button onClick={() => onEdit(user)}>Edit</button>
-                <button onClick={() => onDelete(user._id)}>Delete</button>
-              </div>
+              <li
+                key={user._id}
+                className="list-group-item d-flex justify-content-between align-items-center"
+              >
+                {user.username}
+                <div>
+                  <button
+                    className="btn btn-sm btn-warning me-2"
+                    onClick={() => onEdit(user)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="btn btn-sm btn-danger"
+                    onClick={() => onDelete(user._id)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </li>
             ))}
           </ul>
         </div>
